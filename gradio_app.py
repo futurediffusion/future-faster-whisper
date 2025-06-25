@@ -50,7 +50,7 @@ def transcribe(file_obj):
 def main():
     interface = gr.Interface(
         fn=transcribe,
-        inputs=gr.File(label="Audio or Video (.mp3, .wav, .mp4)", type="file"),
+        inputs=gr.File(label="Audio or Video (.mp3, .wav, .mp4)", type="filepath"),
         outputs=gr.Textbox(label="Transcription"),
         title="faster-whisper Transcription",
     )
