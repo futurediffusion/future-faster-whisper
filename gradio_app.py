@@ -18,7 +18,7 @@ def transcribe(file_obj):
     temp_dir = None
     audio_path = file_path
 
-    if ext == ".mp4":
+    if ext in (".mp4", ".mp3"):
         temp_dir = tempfile.mkdtemp()
         audio_path = os.path.join(temp_dir, "audio.wav")
         ffmpeg_exe = imageio_ffmpeg.get_ffmpeg_exe()
