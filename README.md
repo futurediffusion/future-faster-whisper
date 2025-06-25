@@ -232,6 +232,19 @@ logging.getLogger("faster_whisper").setLevel(logging.DEBUG)
 
 See more model and transcription options in the [`WhisperModel`](https://github.com/SYSTRAN/faster-whisper/blob/master/faster_whisper/transcribe.py) class implementation.
 
+### Gradio interface
+
+A minimal demo application is provided in `gradio_app.py`. After installing
+the package dependencies run:
+
+```bash
+pip install -r requirements.txt
+python gradio_app.py
+```
+
+This launches a web interface that accepts audio or video files and displays the
+transcription.
+
 ## Community integrations
 
 Here is a non exhaustive list of open-source projects using faster-whisper. Feel free to add your project to the list!
