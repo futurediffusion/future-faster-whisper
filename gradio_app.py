@@ -1,9 +1,10 @@
 import os
 import shutil
+import subprocess
 import tempfile
 
 import gradio as gr
-from moviepy.editor import VideoFileClip
+import imageio_ffmpeg
 from faster_whisper import WhisperModel
 
 MODEL_SIZE = os.getenv("MODEL_SIZE", "small")
@@ -20,8 +21,22 @@ def transcribe(file_obj):
     if ext == ".mp4":
         temp_dir = tempfile.mkdtemp()
         audio_path = os.path.join(temp_dir, "audio.wav")
-        with VideoFileClip(file_path) as video:
-            video.audio.write_audiofile(audio_path, verbose=False, logger=None)
+        ffmpeg_exe = imageio_ffmpeg.get_ffmpeg_exe()
+        cmd = [
+            ffmpeg_exe,
+            "-y",
+            "-i",
+            file_path,
+            "-vn",
+            "-acodec",
+            "pcm_s16le",
+            "-ar",
+            "16000",
+            "-ac",
+            "1",
+            audio_path,
+        ]
+        subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True)
 
     segments, _ = model.transcribe(audio_path)
     text = "".join(segment.text for segment in segments)

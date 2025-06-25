@@ -3,6 +3,6 @@ huggingface_hub>=0.13
 tokenizers>=0.13,<1
 onnxruntime>=1.14,<2
 av>=11
-moviepy>=1.0
+imageio-ffmpeg>=0.6
 gradio>=3.0
 tqdm

@@ -34,7 +34,7 @@ IF EXIST "requirements.conversion.txt" (
 )
 
 REM Instalar los módulos críticos directamente
-pip install gradio moviepy || goto end
+pip install gradio imageio-ffmpeg || goto end
 pip install -e . || goto end
 
 REM Lanzar la app
