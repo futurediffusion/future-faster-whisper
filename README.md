@@ -245,6 +245,19 @@ python gradio_app.py
 This launches a web interface that accepts audio or video files and displays the
 transcription.
 
+### Windows GPU quick start
+
+On Windows systems you can use `run_gpu_app.bat` which installs the required
+CUDA 12.4 packages inside a virtual environment, sets the paths automatically and
+launches the demo:
+
+```bat
+run_gpu_app.bat
+```
+
+The script installs cuDNN 9, cuBLAS and compatible PyTorch wheels for Python
+3.11/3.12 before re‑installing `faster-whisper` without dependencies.
+
 ## Community integrations
 
 Here is a non exhaustive list of open-source projects using faster-whisper. Feel free to add your project to the list!
