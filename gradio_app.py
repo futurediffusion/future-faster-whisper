@@ -1,10 +1,11 @@
 import os
 import shutil
+import subprocess
 import tempfile
 
 import gradio as gr
+import imageio_ffmpeg
 from faster_whisper import WhisperModel
-from moviepy.editor import VideoFileClip
 
 model_error = None
 try:
@@ -31,10 +32,29 @@ def transcribe(file_obj):
     if ext == ".mp4":
         temp_dir = tempfile.mkdtemp()
         audio_path = os.path.join(temp_dir, "audio.wav")
+        ffmpeg_exe = imageio_ffmpeg.get_ffmpeg_exe()
+        cmd = [
+            ffmpeg_exe,
+            "-y",
+            "-i",
+            file_path,
+            "-vn",
+            "-acodec",
+            "pcm_s16le",
+            "-ar",
+            "16000",
+            "-ac",
+            "1",
+            audio_path,
+        ]
         try:
-            with VideoFileClip(file_path) as video:
-                video.audio.write_audiofile(audio_path, verbose=False, logger=None)
-        except Exception as e:
+            subprocess.run(
+                cmd,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                check=True,
+            )
+        except subprocess.CalledProcessError as e:
             shutil.rmtree(temp_dir, ignore_errors=True)
             return f"Error extrayendo audio: {e}"
 

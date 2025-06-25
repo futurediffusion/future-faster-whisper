@@ -18,7 +18,7 @@ if errorlevel 1 (
 )
 
 python -m pip install --upgrade pip
-pip install gradio moviepy
+pip install gradio imageio-ffmpeg
 pip install -e .
 
 python gradio_app.py
